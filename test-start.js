@@ -7,3 +7,5 @@ combine( {
         return false;
     }
 } );
+
+console.log( '完成' );

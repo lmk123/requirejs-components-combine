@@ -1,6 +1,6 @@
 {
   "name": "require-text-combine",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "将组件用到的文本（使用text!插件加载的）合并在一起",
   "main": "src/combine.js",
   "repository": {

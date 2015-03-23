@@ -20,11 +20,12 @@ function Main( config ) {
     fs.readdir( this.options.workDir , function ( err , names ) {
         names.forEach( function ( name ) {
             var filePath = path.resolve( that.options.workDir , name );
-            fs.stat( filePath , function ( err , statObj ) {
-                if ( statObj.isDirectory() ) { // 如果是文件夹
-                    that.handle( filePath );
-                }
-            } );
+            var statObj = fs.statSync( filePath );
+            //fs.stat( filePath , function ( err , statObj ) {
+            if ( statObj.isDirectory() ) { // 如果是文件夹
+                that.handle( filePath );
+            }
+            //} );
         } );
     } );
 
@@ -58,34 +59,35 @@ Main.prototype.handle = function ( cptDirPath ) {
         return;
     }
 
-    fs.readFile( cptDirPath + '/' + pickup , function ( err , fileBuff ) {
-        var fileContent = fileBuff.toString() ,
-            depNames = fileContent.match( textRegExp ) ,
-            depFileName;
+    //fs.readFile( cptDirPath + '/' + pickup , function ( err , fileBuff ) {
+    //    var fileContent = fileBuff.toString() ,
+    var fileContent = fs.readFileSync( cptDirPath + '/' + pickup ).toString() ,
+        depNames = fileContent.match( textRegExp ) ,
+        depFileName;
 
-        if ( depNames ) {
+    if ( depNames ) {
 
-            depFileName = depNames.map( function ( fileDepName ) {
-                return findFilename( fileDepName );
-            } );
+        depFileName = depNames.map( function ( fileDepName ) {
+            return findFilename( fileDepName );
+        } );
 
-            depFileName.forEach( function ( filename , index ) {
-                var depFileContent = fs.readFileSync( cptDirPath + '/' + filename ).toString() ,
-                    depName = depNames[ index ];
+        depFileName.forEach( function ( filename , index ) {
+            var depFileContent = fs.readFileSync( cptDirPath + '/' + filename ).toString() ,
+                depName = depNames[ index ];
 
-                if ( hasStrip( depName ) ) {
-                    depFileContent = depFileContent.match( bodyRegExp )[ 1 ];
-                }
-                fileContent = wrapDefine( depName , depFileContent ) + fileContent.replace( depName , transformDepName( depName ) );
-
-            } );
-
-            var outputPath = cptDirPath + '.js';
-            if ( false !== options.onOutput( outputPath , fileContent ) ) {
-                fs.writeFile( outputPath , fileContent );
+            if ( hasStrip( depName ) ) {
+                depFileContent = depFileContent.match( bodyRegExp )[ 1 ];
             }
+            fileContent = wrapDefine( depName , depFileContent ) + fileContent.replace( depName , transformDepName( depName ) );
+
+        } );
+
+        var outputPath = cptDirPath + '.js';
+        if ( false !== options.onOutput( outputPath , fileContent ) ) {
+            fs.writeFile( outputPath , fileContent );
         }
-    } );
+    }
+    //} );
 };
 
 /**
