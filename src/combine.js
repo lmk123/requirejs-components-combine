@@ -57,8 +57,6 @@ Main.prototype.handle = function ( cptDirPath ) {
     if ( !pickup ) {
         return;
     }
-    //console.log( pickup );
-    //return;
 
     fs.readFile( cptDirPath + '/' + pickup , function ( err , fileBuff ) {
         var fileContent = fileBuff.toString() ,
@@ -66,13 +64,12 @@ Main.prototype.handle = function ( cptDirPath ) {
             depFileName;
 
         if ( depNames ) {
+
             depFileName = depNames.map( function ( fileDepName ) {
                 return findFilename( fileDepName );
             } );
 
             depFileName.forEach( function ( filename , index ) {
-                //fs.readFile( cptDirPath + '/' + filename , function ( err , fileBuff ) {
-                //    var depFileContent = fileBuff.toString() ,
                 var depFileContent = fs.readFileSync( cptDirPath + '/' + filename ).toString() ,
                     depName = depNames[ index ];
 
@@ -80,23 +77,14 @@ Main.prototype.handle = function ( cptDirPath ) {
                     depFileContent = depFileContent.match( bodyRegExp )[ 1 ];
                 }
                 fileContent = wrapDefine( depName , depFileContent ) + fileContent.replace( depName , transformDepName( depName ) );
-                iAmReady();
-                //} );
-            } );
-        }
 
-        function iAmReady() {
+            } );
+
             var outputPath = cptDirPath + '.js';
-            iAmReady.already += 1;
-            if ( iAmReady.already === iAmReady.allCount ) {
-                if ( false !== options.onOutput( outputPath , fileContent ) ) {
-                    fs.writeFile( outputPath , fileContent );
-                }
+            if ( false !== options.onOutput( outputPath , fileContent ) ) {
+                fs.writeFile( outputPath , fileContent );
             }
         }
-
-        iAmReady.allCount = (depNames || []).length;
-        iAmReady.already = 0;
     } );
 };
 
