@@ -1,0 +1,15 @@
+{
+  "name": "require-text-combine",
+  "version": "1.0.0",
+  "description": "将组件用到的文本（使用text!插件加载的）合并在一起",
+  "main": "src/combine.js",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/substack/node-browserify.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "milk.lee",
+  "license": "MIT"
+}

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <title>测试一</title>
+    </head>
+    <body>
+        <script>
+            var require = {
+                map : {
+                    '*' : {
+                        text : 'https://cdnjs.cloudflare.com/ajax/libs/require-text/2.0.12/text.min.js'
+                    }
+                }
+            };
+        </script>
+        <script data-main="test1" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.16/require.min.js"></script>
+        <script>
+            require( [ 'test1' , 'test2' ] , function ( append , append2 ) {
+                append();
+                append2();
+            } );
+        </script>
+    </body>
+</html>
