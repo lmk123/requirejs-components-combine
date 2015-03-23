@@ -17,16 +17,13 @@ function Main( config ) {
         onOutput : config.onOutput || function () { } ,
         mainScript : config.mainScript || [ 'index.js' , 'main.js' ]
     };
-    fs.readdir( this.options.workDir , function ( err , names ) {
-        names.forEach( function ( name ) {
-            var filePath = path.resolve( that.options.workDir , name );
-            var statObj = fs.statSync( filePath );
-            //fs.stat( filePath , function ( err , statObj ) {
-            if ( statObj.isDirectory() ) { // 如果是文件夹
-                that.handle( filePath );
-            }
-            //} );
-        } );
+
+    fs.readdirSync( this.options.workDir ).forEach( function ( name ) {
+        var filePath = path.resolve( that.options.workDir , name );
+        var statObj = fs.statSync( filePath );
+        if ( statObj.isDirectory() ) { // 如果是文件夹
+            that.handle( filePath );
+        }
     } );
 
     // 测试 findFilename 函数
@@ -59,8 +56,6 @@ Main.prototype.handle = function ( cptDirPath ) {
         return;
     }
 
-    //fs.readFile( cptDirPath + '/' + pickup , function ( err , fileBuff ) {
-    //    var fileContent = fileBuff.toString() ,
     var fileContent = fs.readFileSync( cptDirPath + '/' + pickup ).toString() ,
         depNames = fileContent.match( textRegExp ) ,
         depFileName;
@@ -87,7 +82,6 @@ Main.prototype.handle = function ( cptDirPath ) {
             fs.writeFile( outputPath , fileContent );
         }
     }
-    //} );
 };
 
 /**
@@ -99,10 +93,6 @@ function findFilename( depStr ) {
     var depStr = depStr.slice( 6 ) ,
         lastX = depStr.lastIndexOf( '/' ) ,
         isStrip = hasStrip( depStr );
-
-    //if ( -1 === lastX ) {
-    //    lastX = 0;
-    //}
 
     return depStr.slice( lastX + 1 , isStrip ? -7 : -1 );
 }
@@ -122,32 +112,7 @@ function hasStrip( depName ) {
  */
 function transformDepName( depName ) {
     var isStrip = hasStrip( depName );
-    //    result = '_' + depName.slice( 6 , -1 );
-    //if ( isStrip ) {
-    //    result += '!strip';
-    //}
-    //return result; // 去掉开头的 "text! 与结尾的 "，并加前缀_，然后用双引号包裹
+
+    // 去掉开头的 "text! 与结尾的 "，并加前缀_，然后用双引号包裹
     return '"_' + depName.slice( 6 , isStrip ? -7 : -1 ) + '"';
 }
-
-//function async( functionsArray ) {
-//    var ready = 0 ,
-//        functions = Array.isArray( functionsArray ) ? functionsArray : Array.prototype.slice( 0 , -1 ) ,
-//        count = functions.length ,
-//        cb = arguments[ count - 1 ];
-//
-//    functions.forEach( function ( func ) {
-//        func( allReady );
-//    } );
-//
-//    function allReady() {
-//        ready += 1;
-//        if ( ready === count ) {
-//            cb();
-//        }
-//    }
-//}
-
-
-
-
