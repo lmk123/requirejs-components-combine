@@ -1,4 +1,4 @@
-define("_test1/test.html",function(){return'<div class="test-1">测试组件1加载完成</div>'});define("_test1/test.css",function(){return'.test-1 { background-color: red; color: #fff; }'});define( [
+define("_test1/test.css",function(){return'.test-1 { background-color: red; color: #fff; }'});define("_test1/test.html",function(){return'<div class="test-1">测试组件1加载完成</div>'});define( [
     "_test1/test.css" ,
     "_test1/test.html"
 ] , function ( CSS , HTML ) {

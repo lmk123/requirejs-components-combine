@@ -71,16 +71,17 @@ Main.prototype.handle = function ( cptDirPath ) {
             } );
 
             depFileName.forEach( function ( filename , index ) {
-                fs.readFile( cptDirPath + '/' + filename , function ( err , fileBuff ) {
-                    var depName = depNames[ index ] ,
-                        depFileContent = fileBuff.toString();
+                //fs.readFile( cptDirPath + '/' + filename , function ( err , fileBuff ) {
+                //    var depFileContent = fileBuff.toString() ,
+                var depFileContent = fs.readFileSync( cptDirPath + '/' + filename ).toString() ,
+                    depName = depNames[ index ];
 
-                    if ( hasStrip( depName ) ) {
-                        depFileContent = depFileContent.match( bodyRegExp )[ 1 ];
-                    }
-                    fileContent = wrapDefine( depName , depFileContent ) + fileContent.replace( depName , transformDepName( depName ) );
-                    iAmReady();
-                } );
+                if ( hasStrip( depName ) ) {
+                    depFileContent = depFileContent.match( bodyRegExp )[ 1 ];
+                }
+                fileContent = wrapDefine( depName , depFileContent ) + fileContent.replace( depName , transformDepName( depName ) );
+                iAmReady();
+                //} );
             } );
         }
 
