@@ -5,10 +5,10 @@
   "main": "src/combine.js",
   "repository": {
     "type": "git",
-    "url": "http://github.com/substack/node-browserify.git"
+    "url": "https://github.com/lmk123/requirejs-components-combine.git"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test-start"
   },
   "author": "milk.lee",
   "license": "MIT"
