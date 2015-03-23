@@ -28,6 +28,7 @@ components/
 
 ## 工作原理
 以上面展示的 module1 文件夹结构为例：
+
 1. 读取 index.js 的内容保存在变量里，下面称做 `fileContent`
 2. 根据正则分析出 `text!` 的引用
 3. 分析 `text!` 引用的文件名，并将文本内容像这样 `define("_module1/css.css",function(){return'这里是css文本'});` 包裹起来并追加到 `fileContent` 的前面，然后更新 `fileContent` 里原本的引用名（例如将`define(['module1/css.css'])`变成`define(['_module1/css.css'])`）
