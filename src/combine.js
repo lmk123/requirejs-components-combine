@@ -79,7 +79,7 @@ Main.prototype.handle = function ( cptDirPath ) {
 
         var outputPath = cptDirPath + '.js';
         if ( false !== options.onOutput( outputPath , fileContent ) ) {
-            fs.writeFile( outputPath , fileContent );
+            fs.writeFileSync( outputPath , fileContent );
         }
     }
 };

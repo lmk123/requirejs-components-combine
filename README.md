@@ -2,11 +2,11 @@
 一个简单的组件组合工具。
 
 ## 使用场景
-一个网站总会有某一部分是在多个页面上用到的，最简单的例子就是用来取代浏览器默认的 `alert()`、'confirm()' 样式的弹层组件--我把这些由css、html与js组合起来的部分叫做_*组件*_，虽然我不知道是否准确。
+一个网站总会有某一部分是在多个页面上用到的，最简单的例子就是用来取代浏览器默认的 `alert()`、`confirm()` 样式的弹层组件--我把这些由css、html与js组合起来的部分叫做_*组件*_，虽然我不知道是否准确。
 
-Requirejs 自身可以加载 js 脚本，然后提供了各种插件来帮助我们加载 css 和 html，如 [require-css](https://github.com/guybedford/require-css) 与 [requirejs/text](https://github.com/requirejs/text)，最后还提供了 [r.js](https://github.com/jrburke/r.js)来组合模块，即使这样，我还是自己写了这个简单的组件组合工具，因为 r.js 配置起来太麻烦 - -
+Requirejs 自身可以加载 js 脚本，然后提供了各种插件来帮助我们加载 css 和 html，如 [require-css](https://github.com/guybedford/require-css) 与 [requirejs/text](https://github.com/requirejs/text)，最后还提供了 [r.js](https://github.com/jrburke/r.js) 来组合模块，即使这样，我还是自己写了这个简单的组件组合工具，因为 r.js 配置起来太麻烦 - -
 
-如果你有这样结构的组件：（可以在 test 文件夹下查看此工具适用的文件结构及完成之后的文件内容）
+如果你有这样结构的组件：（可以在 [test 文件夹](https://github.com/lmk123/requirejs-components-combine/tree/master/test)下查看此工具适用的文件结构及组合之后的文件内容）
 ```
 components/
      |
